@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B1573EF6-50B9-9BEE-6053-1382FC180479}</ProjectGuid>
+    <ProjectGuid>{26F82BAA-3A9C-B48E-874A-F2939580E41D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,7 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ExitRefresh.cs" />
      <Compile Include="Assets\FoodSprawn.cs" />
+     <Compile Include="Assets\MonkAttack.cs" />
+     <Compile Include="Assets\MonkRefresh.cs" />
      <Compile Include="Assets\Snake.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

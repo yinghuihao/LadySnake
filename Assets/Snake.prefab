@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114429342770714296}
   m_Layer: 0
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1297574534278136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.1, y: -3, z: 0}
-  m_LocalScale: {x: 0.06793412, y: 0.06793412, z: 0.06793412}
+  m_LocalPosition: {x: -18.1, y: -4.9, z: 0}
+  m_LocalScale: {x: 200, y: 200, z: 0.06793412}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,21 +72,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 35, y: 30}
+    oldSize: {x: 0.175, y: 0.15}
     newSize: {x: 35, y: 30}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.15, y: 0.15}
   m_EdgeRadius: 0
 --- !u!114 &114429342770714296
 MonoBehaviour:
@@ -100,10 +100,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRotation: 0
+  tailRotation: 0
   tail: []
+  t: {fileID: 0}
   TailPrefab: {fileID: 1114093499148428, guid: 2ac43ffcb9bba4558b56b5340239e7bf, type: 2}
   tPrefab: {fileID: 1133121455848054, guid: 0ecd850f4a4c84c489c40e50f2a4ea69, type: 2}
   curdir: {x: 1, y: 0}
+  taildir: {x: -1, y: 0}
+  currentHealthBar: {fileID: 0}
+  ratioText: {fileID: 0}
 --- !u!212 &212588659747813680
 SpriteRenderer:
   m_ObjectHideFlags: 1
