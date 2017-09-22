@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -18,20 +19,42 @@ public class Snake : MonoBehaviour {
 	public GameObject tPrefab;
 	public Vector2 curdir = Vector2.right;
 	public Vector2 taildir = Vector2.left;
+	public Image currentHealthBar;
+	public Text ratioText;
+	private float hitpoint = 150.0f;
+	private float maxHitpoint = 150.0f;
 
-//	private int level = 1;
 	private bool exit = false;
-	// Use this for initialization
-	void Start () {
-		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-1, transform.position.y), Quaternion.identity);
-		InvokeRepeating ("Move", 0.3f, 0.3f);
+
+	private void UpdateHealthBar(){
+		float ratio = hitpoint / maxHitpoint;
+		currentHealthBar.rectTransform.localScale = new Vector3 (ratio, 1, 1);
+		ratioText.text = (ratio * 100).ToString () + '%';
 	}
 
-	// Update is called once per frame
+	public void TakeDamage(float damage){
+		hitpoint -= damage;
+		UpdateHealthBar ();
+	}
+
+	public void Heal(float health){
+		hitpoint += health;
+		UpdateHealthBar ();
+	}
+
+	// Use this for initialization
+	void Start () {
+		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-10, transform.position.y), Quaternion.identity);
+		InvokeRepeating ("Move", 0.3f, 0.3f);
+		UpdateHealthBar ();
+	}
+
+	// Update is called once per frame, calculate head rotation degree per frame
 	void Update () {
 		if (exit) {
 			return;
 		}
+		hitpoint -= 0.5f * Time.deltaTime;
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			if (curdir == Vector2.up) {
 				currentRotation += -90.0f;
@@ -77,10 +100,23 @@ public class Snake : MonoBehaviour {
 			}
 			rotated = true;
 		}
+		if (Input.GetKey (KeyCode.D)) {
+			TakeDamage (1.0f);
+		} 
+		if (hitpoint < 0) {
+			hitpoint = 0.0f;
+			exit = true;
+			EditorUtility.DisplayDialog ("Health Exhausted", "Game Over", "OK");
+			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+		}else if (hitpoint > 150) {
+			hitpoint = 150.0f;
+		}
+		UpdateHealthBar ();
 	}
 
+	//Tail rotation degree calculation
 	void calculateDir(Vector2 lastpos, Vector2 curpos){
-		if (curpos.x - lastpos.x == 1) {//Heading Right
+		if (curpos.x - lastpos.x == 20) {//Heading Right
 			if (taildir == Vector2.up) {
 				tailRotation += 90.0f;
 			} else if (taildir == Vector2.down) {
@@ -89,7 +125,7 @@ public class Snake : MonoBehaviour {
 				tailRotation += 0.0f;
 			}
 			taildir = Vector2.left;
-		} else if (curpos.x - lastpos.x == -1) {//Heading Left
+		} else if (curpos.x - lastpos.x == -20) {//Heading Left
 			if (taildir == Vector2.up) {
 				tailRotation += -90.0f;
 			} else if (taildir == Vector2.down) {
@@ -98,7 +134,7 @@ public class Snake : MonoBehaviour {
 				tailRotation += 0.0f;
 			}
 			taildir = Vector2.right;
-		} else if (curpos.y - lastpos.y == 1) {//Heading Up
+		} else if (curpos.y - lastpos.y == 20) {//Heading Up
 			if (taildir == Vector2.right) {
 				tailRotation += -90.0f;
 			} else if (taildir == Vector2.left) {
@@ -107,7 +143,7 @@ public class Snake : MonoBehaviour {
 				tailRotation += 0.0f;
 			}
 			taildir = Vector2.down;
-		} else if (curpos.y - lastpos.y == -1) {
+		} else if (curpos.y - lastpos.y == -20) {
 			if (taildir == Vector2.right) {
 				tailRotation += 90.0f;
 			} else if (taildir == Vector2.left) {
@@ -127,9 +163,6 @@ public class Snake : MonoBehaviour {
 		if (ate) {
 			GameObject g = (GameObject)Instantiate (TailPrefab, v, Quaternion.identity);
 			tail.Insert (0, g.transform);
-			//if (tail.Count == 1) {
-				//tailRotation = 0.0f;
-			//}
 			ate = false;
 		} else if (tail.Count > 0) {
 			Vector2 lastpos = tail.Last ().position;
@@ -145,15 +178,16 @@ public class Snake : MonoBehaviour {
 		}
 
 		if (curdir == Vector2.right) {
-			transform.position = new Vector3 (transform.position.x + 1, transform.position.y, transform.position.z);
+			transform.position = new Vector3 (transform.position.x + 20, transform.position.y, transform.position.z);
 		} else if (curdir == Vector2.up) {
-			transform.position = new Vector3 (transform.position.x, transform.position.y + 1, transform.position.z);
+			transform.position = new Vector3 (transform.position.x, transform.position.y + 20, transform.position.z);
 		} else if (curdir == -Vector2.right) {
-			transform.position = new Vector3 (transform.position.x - 1, transform.position.y, transform.position.z);
+			transform.position = new Vector3 (transform.position.x - 20, transform.position.y, transform.position.z);
 		} else if (curdir == -Vector2.up) {
-			transform.position = new Vector3 (transform.position.x, transform.position.y - 1, transform.position.z);
+			transform.position = new Vector3 (transform.position.x, transform.position.y - 20, transform.position.z);
 		}
 
+		//Rotation of snake's head and tail
 		if (rotated == true) {
 			transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, currentRotation));
 			if (tail.Count == 0) {
@@ -166,39 +200,25 @@ public class Snake : MonoBehaviour {
 		}
 	}
 
-//	void SnakeDisappear(){
-//		while (tail.Count > 0) {
-//			Debug.Log ("tailCount" + tail.Count);
-//			removeBody ();
-//		}
-//		if (tail.Count == 0) {
-//			Destroy (tPrefab);
-//		}
-//
-//	}
-//
-//	void removeBody(){
-//		Debug.Log ("removeCalled" + tail);
-//		tail.RemoveAt (0);
-//	}
-
+	//Collision with food
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.name.StartsWith ("FoodPrefab")) {
 			ate = true;
 			Destroy (coll.gameObject);
-		}else if (coll.name.StartsWith ("exit")) {
+			Heal (2.0f);
+		} else if (coll.name.StartsWith ("ExitPrefab")) {
 			exit = true;
-//			Debug.Log ("tail" + tail.Count);
+			//			Debug.Log ("tail" + tail.Count);
 			while (tail.Count > 0) {
 				tail.RemoveAt (tail.Count - 1);
-//				Invoke ("removeBody", 0.3f);
+				//				Invoke ("removeBody", 0.3f);
 				Debug.Log ("tail" + tail.Count);
 			}
 			EditorUtility.DisplayDialog ("Congrats", "Going to next level", "OK");
 			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-		} else {
+		} else if (coll.name.StartsWith("Border")){
 			EditorUtility.DisplayDialog ("Oops", "Don't hit the wall", "OK");
 			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 		}
-	}		
+	}
 }
