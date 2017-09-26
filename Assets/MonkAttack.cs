@@ -11,11 +11,11 @@ public class MonkAttack : MonoBehaviour {
 	float timer;
 
 	void OnTriggerStay2D(Collider2D other){
-		if (other.name.StartsWith ("Snake")) {
+		if (other.name.StartsWith ("snake_head")) {
 			playerInRange = true;
 			player.SendMessage ("TakeDamage", attackDamage*Time.deltaTime);
-			//Debug.Log ("In range");
-		} else if(other.name.StartsWith("TailPrefab")){
+			Debug.Log ("In range");
+		} else if(other.name.StartsWith("snake_body")){
 			player.SendMessage ("TakeDamage", attackDamage*Time.deltaTime);
 			Debug.Log (other.name);
 		}
@@ -23,6 +23,6 @@ public class MonkAttack : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Snake");
+		player = GameObject.Find ("snake_head");
 	}
 }

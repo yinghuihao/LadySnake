@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.5
   attackDamage: 5
-  player: {fileID: 1297574534278136, guid: 81b33b175de1d4ff190f7e939690db0b, type: 2}
+  player: {fileID: 1974016945455092, guid: a19ff7dc3df704d38b7a813ffa0ea70c, type: 2}
 --- !u!212 &212748694687948670
 SpriteRenderer:
   m_ObjectHideFlags: 1
