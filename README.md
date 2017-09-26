@@ -23,6 +23,7 @@ For different team member, you should have your own branch:
 |---------|--------|
 | Yinghui Hao | [haoyinghui](https://github.com/yinghuihao/LadySnake/tree/haoyinghui)|
 | Boyang Yu | [boyangyu](https://github.com/yinghuihao/LadySnake/tree/boyangyu) |
+| | |
 
 #### Steps to set up your own Branch:
 
