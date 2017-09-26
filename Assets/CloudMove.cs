@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloudMove : MonoBehaviour {
 	private float cloud_speed = 100.0f;
-	// Use this for initialization
+	// Use this for initialization1234
 	void Start () {
 		
 	}
