@@ -44,8 +44,8 @@ public class Snake_head : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-35, transform.position.y), Quaternion.identity);
-		InvokeRepeating ("Move", 0.3f, 0.3f);
+		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-50, transform.position.y), Quaternion.identity);
+		InvokeRepeating ("Move", 0.2f, 0.2f);
 		UpdateHealthBar ();
 	}
 
@@ -54,7 +54,7 @@ public class Snake_head : MonoBehaviour {
 		if (exit) {
 			return;
 		}
-		hitpoint -= 0.5f * Time.deltaTime;
+		hitpoint -= 1.0f * Time.deltaTime;
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			if (curdir == Vector2.up) {
 				currentRotation += -90.0f;
@@ -216,7 +216,7 @@ public class Snake_head : MonoBehaviour {
 			}
 			EditorUtility.DisplayDialog ("Congrats", "Going to next level", "OK");
 			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
-		} else if(coll.name.StartsWith("MonkPrefab")){
+		} else if(coll.name.StartsWith("monk")){
 		} else {
 			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
 			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
