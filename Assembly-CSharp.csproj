@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B1573EF6-50B9-9BEE-6053-1382FC180479}</ProjectGuid>
+    <ProjectGuid>{B6FA0909-4716-8A02-DF27-4290AE39DFAC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,15 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CloudMove.cs" />
-     <Compile Include="Assets\CloudMove2.cs" />
-     <Compile Include="Assets\ExitRefresh.cs" />
-     <Compile Include="Assets\FoodSprawn.cs" />
-     <Compile Include="Assets\MonkAttack.cs" />
-     <Compile Include="Assets\MonkRefresh.cs" />
-     <Compile Include="Assets\NewBehaviourScript.cs" />
-     <Compile Include="Assets\Snake.cs" />
-     <Compile Include="Assets\Snake_head.cs" />
+     <Compile Include="Assets\Scripts\CloudMove.cs" />
+     <Compile Include="Assets\Scripts\CloudMove2.cs" />
+     <Compile Include="Assets\Scripts\ExitRefresh.cs" />
+     <Compile Include="Assets\Scripts\FoodSprawn.cs" />
+     <Compile Include="Assets\Scripts\Initialization.cs" />
+     <Compile Include="Assets\Scripts\MonkAttack.cs" />
+     <Compile Include="Assets\Scripts\MonkRefresh.cs" />
+     <Compile Include="Assets\Scripts\Snake_head.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
