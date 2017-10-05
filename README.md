@@ -23,6 +23,7 @@ For different team member, you should have your own branch:
 |---------|--------|
 | Yinghui Hao | [haoyinghui](https://github.com/yinghuihao/LadySnake/tree/haoyinghui)|
 | Boyang Yu | [boyangyu](https://github.com/yinghuihao/LadySnake/tree/boyangyu) |
+| | |
 
 #### Steps to set up your own Branch:
 
@@ -39,7 +40,10 @@ For different team member, you should have your own branch:
 6. Change the title and comments to whatever you think is necessary for team leader/code reviewer to merge and test your code. On the right side you can add reviewers/labels if you like, then click on "Create Pull Request", notify your team leader/code reviewer and wait for further feedbacks.
 
 > `git status` can check your code status and tell you if you need to `git pull` or `add` or `commit`.
+
 > **Note:** If you already have your open pull request, there is no need to create a new one, for every changes you make as long as you push your latest code to Github, the opened pull request with same base and compare branch will automatically have your new changes.
+
+> **Note:** If you ever see problem saying `There is no tracking information for current branch` when **`git pull`**, do `git branch --set-upstream-to=origin/<branch name> <branch name>` to link your local branch with remote branch. 
 
 #### Standards for team leader/code reviewer:
 
