@@ -8,6 +8,40 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
 public class Snake_head : MonoBehaviour {
+
+	// Level Scripts
+	public static Snake_head instance = null;   
+	public float levelStartDelay = 1.0f;
+	private Text levelText;
+	private GameObject levelImage;
+	private static int level = 0;
+	private bool doingSetup;
+
+	void InitGame(){
+		level++;
+		doingSetup = true;
+		levelImage = GameObject.Find ("LevelImage");
+		levelText = GameObject.Find ("LevelText").GetComponent<Text>();
+		levelText.text = "Tower Floor " + level;
+		levelImage.SetActive (true);
+
+		healthSetParent = GameObject.Find ("HealthImage");
+		currentHealthBar = GameObject.Find ("health_level").GetComponent<Image> ();
+		ratioText = GameObject.Find ("Text").GetComponent<Text> ();
+
+		healthSetParent.SetActive (false);
+
+
+		Invoke ("HideLevelImage", levelStartDelay);
+	}
+
+	private void HideLevelImage() {
+		levelImage.SetActive (false);
+		healthSetParent.SetActive (true);
+		doingSetup = false;
+	}
+
+
 	//By default the snake moves to right
 	public float currentRotation;
 	public float tailRotation;
@@ -19,6 +53,7 @@ public class Snake_head : MonoBehaviour {
 	public GameObject tPrefab;
 	public Vector2 curdir = Vector2.right;
 	public Vector2 taildir = Vector2.left;
+	private GameObject healthSetParent;
 	public Image currentHealthBar;
 	public Text ratioText;
 	private float hitpoint = 150.0f;
@@ -44,6 +79,12 @@ public class Snake_head : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (instance == null) {
+			instance = this;
+		}
+
+		InitGame();
+
 		t = (GameObject)Instantiate (tPrefab, new Vector2(transform.position.x-50, transform.position.y), Quaternion.identity);
 		InvokeRepeating ("Move", 0.2f, 0.2f);
 		UpdateHealthBar ();
@@ -51,10 +92,10 @@ public class Snake_head : MonoBehaviour {
 
 	// Update is called once per frame, calculate head rotation degree per frame
 	void Update () {
-		if (exit) {
+		if (exit || doingSetup) {
 			return;
 		}
-		hitpoint -= 1.0f * Time.deltaTime;
+		hitpoint -= 1.0f * Time.deltaTime * level;
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			if (curdir == Vector2.up) {
 				currentRotation += -90.0f;
@@ -215,7 +256,8 @@ public class Snake_head : MonoBehaviour {
 				Debug.Log ("tail" + tail.Count);
 			}
 			EditorUtility.DisplayDialog ("Congrats", "Going to next level", "OK");
-			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+//			SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+			SceneManager.LoadScene (0);
 		} else if(coll.name.StartsWith("monk")){
 		} else {
 			EditorUtility.DisplayDialog ("Oops", "Game over", "OK");
